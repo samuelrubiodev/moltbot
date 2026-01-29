@@ -22,6 +22,8 @@ services:
       - CLAWDBOT_DOCKER_APT_PACKAGES=ffmpeg build-essential git
       - CLAWDBOT_ALLOW_UNCONFIGURED=true
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - CLAWDHUB_WORKDIR=/home/node/.moltbot
+      - CLAWDHUB_DISABLE_TELEMETRY=1
     volumes:
       - moltbot-data:/home/node/.moltbot
       - moltbot-workspace:/home/node/clawd
