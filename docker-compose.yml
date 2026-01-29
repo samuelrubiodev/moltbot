@@ -11,14 +11,15 @@ services:
     environment:
       - HOME=/home/node
       - TERM=xterm-256color
-      - MOLTBOT_GATEWAY_TOKEN=${CLAWDBOT_GATEWAY_TOKEN}
+      - CLAWDBOT_CONFIG_DIR=/home/node/.moltbot
+      - CLAWDBOT_WORKSPACE_DIR=/home/node/clawd
+      - CLAWDBOT_GATEWAY_TOKEN=${CLAWDBOT_GATEWAY_TOKEN}
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
-      - MOLTBOT_GATEWAY_BIND=0.0.0.0
-      - MOLTBOT_GATEWAY_PORT=18789
-      - MOLTBOT_LOAD_SHELL_ENV=1
-      - MOLTBOT_SHELL_ENV_TIMEOUT_MS=15000
-      - MOLTBOT_ALLOW_UNCONFIGURED=true
-      - MOLTBOT_DOCKER_APT_PACKAGES=ffmpeg build-essential
+      - CLAWDBOT_GATEWAY_BIND=0.0.0.0
+      - CLAWDBOT_GATEWAY_PORT=18789
+      - CLAWDBOT_LOAD_SHELL_ENV=1
+      - CLAWDBOT_SHELL_ENV_TIMEOUT_MS=15000
+      - CLAWDBOT_DOCKER_APT_PACKAGES=ffmpeg build-essential
       - CLAWDBOT_ALLOW_UNCONFIGURED=true
     volumes:
       - moltbot-data:/home/node/.moltbot
@@ -27,10 +28,16 @@ services:
       - "18789"
     init: true
     restart: unless-stopped
-    command: ["node", "dist/index.js", "gateway", "--allow-unconfigured"]
+    command: ["node", "dist/index.js", "gateway", "--bind", "0.0.0.0", "--allow-unconfigured"]
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.molbot.loadbalancer.server.port=18789"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:18789/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
   moltbot-cli:
     build:
@@ -41,6 +48,8 @@ services:
       - TERM=xterm-256color
       - BROWSER=echo
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - CLAWDBOT_LOAD_SHELL_ENV=1
+      - CLAWDBOT_SHELL_ENV_TIMEOUT_MS=15000
     volumes:
       - moltbot-data:/home/node/.moltbot
       - moltbot-workspace:/home/node/clawd
