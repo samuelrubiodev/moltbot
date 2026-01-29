@@ -15,12 +15,13 @@ services:
       - CLAWDBOT_WORKSPACE_DIR=/home/node/clawd
       - CLAWDBOT_GATEWAY_TOKEN=${CLAWDBOT_GATEWAY_TOKEN}
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
-      - CLAWDBOT_GATEWAY_BIND=0.0.0.0
+      - CLAWDBOT_GATEWAY_BIND=lan
       - CLAWDBOT_GATEWAY_PORT=18789
       - CLAWDBOT_LOAD_SHELL_ENV=1
       - CLAWDBOT_SHELL_ENV_TIMEOUT_MS=15000
       - CLAWDBOT_DOCKER_APT_PACKAGES=ffmpeg build-essential
       - CLAWDBOT_ALLOW_UNCONFIGURED=true
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
     volumes:
       - moltbot-data:/home/node/.moltbot
       - moltbot-workspace:/home/node/clawd
