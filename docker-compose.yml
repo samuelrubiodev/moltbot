@@ -1,45 +1,62 @@
+# documentation: https://docs.molt.bot/
+# slogan: Moltbot - AI-powered multi-channel messaging gateway
+# tags: ai,chatbot,messaging,automation
+# port: 18789
+
 services:
   moltbot-gateway:
-    image: ${CLAWDBOT_IMAGE:-moltbot:local}
+    build:
+      context: .
+      dockerfile: Dockerfile
     environment:
       HOME: /home/node
       TERM: xterm-256color
+      # Token de autenticación (generado automáticamente o manual)
       CLAWDBOT_GATEWAY_TOKEN: ${CLAWDBOT_GATEWAY_TOKEN}
-      CLAUDE_AI_SESSION_KEY: ${CLAUDE_AI_SESSION_KEY}
-      CLAUDE_WEB_SESSION_KEY: ${CLAUDE_WEB_SESSION_KEY}
-      CLAUDE_WEB_COOKIE: ${CLAUDE_WEB_COOKIE}
+      # Claves de API (configura en Coolify UI)
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      # Configuración del gateway
+      CLAWDBOT_GATEWAY_BIND: lan
+      CLAWDBOT_GATEWAY_PORT: 18789
     volumes:
-      - ${CLAWDBOT_CONFIG_DIR}:/home/node/.clawdbot
-      - ${CLAWDBOT_WORKSPACE_DIR}:/home/node/clawd
-    ports:
-      - "${CLAWDBOT_GATEWAY_PORT:-18789}:18789"
-      - "${CLAWDBOT_BRIDGE_PORT:-18790}:18790"
+      - moltbot-config:/home/node/.clawdbot
+      - moltbot-workspace:/home/node/clawd
+    # NO pongas ports aquí - Coolify maneja esto con el proxy
+    expose:
+      - "18789"
     init: true
     restart: unless-stopped
-    command:
-      [
-        "node",
-        "dist/index.js",
-        "gateway",
-        "--bind",
-        "${CLAWDBOT_GATEWAY_BIND:-lan}",
-        "--port",
-        "${CLAWDBOT_GATEWAY_PORT:-18789}"
-      ]
+    command: ["node", "dist/index.js", "gateway", "--bind", "lan", "--port", "18789"]
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:18789/health", "||", "exit", "1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
   moltbot-cli:
-    image: ${CLAWDBOT_IMAGE:-moltbot:local}
+    build:
+      context: .
+      dockerfile: Dockerfile
     environment:
       HOME: /home/node
       TERM: xterm-256color
       BROWSER: echo
-      CLAUDE_AI_SESSION_KEY: ${CLAUDE_AI_SESSION_KEY}
-      CLAUDE_WEB_SESSION_KEY: ${CLAUDE_WEB_SESSION_KEY}
-      CLAUDE_WEB_COOKIE: ${CLAUDE_WEB_COOKIE}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
     volumes:
-      - ${CLAWDBOT_CONFIG_DIR}:/home/node/.clawdbot
-      - ${CLAWDBOT_WORKSPACE_DIR}:/home/node/clawd
+      - moltbot-config:/home/node/.clawdbot
+      - moltbot-workspace:/home/node/clawd
     stdin_open: true
     tty: true
     init: true
     entrypoint: ["node", "dist/index.js"]
+    profiles:
+      - cli  # Solo se inicia manualmente
+
+volumes:
+  moltbot-config:
+    driver: local
+  moltbot-workspace:
+    driver: local
