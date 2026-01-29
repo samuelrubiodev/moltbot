@@ -19,7 +19,7 @@ services:
       - CLAWDBOT_GATEWAY_PORT=18789
       - CLAWDBOT_LOAD_SHELL_ENV=1
       - CLAWDBOT_SHELL_ENV_TIMEOUT_MS=15000
-      - CLAWDBOT_DOCKER_APT_PACKAGES=ffmpeg build-essential
+      - CLAWDBOT_DOCKER_APT_PACKAGES=ffmpeg build-essential git
       - CLAWDBOT_ALLOW_UNCONFIGURED=true
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
     volumes:
