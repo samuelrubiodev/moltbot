@@ -11,14 +11,15 @@ services:
     environment:
       - HOME=/home/node
       - TERM=xterm-256color
-      - CLAWDBOT_GATEWAY_TOKEN=${CLAWDBOT_GATEWAY_TOKEN}
+      - MOLTBOT_GATEWAY_TOKEN=${CLAWDBOT_GATEWAY_TOKEN}
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
-      - CLAWDBOT_GATEWAY_BIND=0.0.0.0
-      - CLAWDBOT_GATEWAY_PORT=18789
-      - CLAWDBOT_LOAD_SHELL_ENV=1
-      - CLAWDBOT_SHELL_ENV_TIMEOUT_MS=15000
+      - MOLTBOT_GATEWAY_BIND=0.0.0.0
+      - MOLTBOT_GATEWAY_PORT=18789
+      - MOLTBOT_LOAD_SHELL_ENV=1
+      - MOLTBOT_SHELL_ENV_TIMEOUT_MS=15000
+      - MOLTBOT_ALLOW_UNCONFIGURED=true
+      - MOLTBOT_DOCKER_APT_PACKAGES=ffmpeg build-essential
       - CLAWDBOT_ALLOW_UNCONFIGURED=true
-      - CLAWDBOT_DOCKER_APT_PACKAGES=ffmpeg build-essential
     volumes:
       - moltbot-data:/home/node/.moltbot
       - moltbot-workspace:/home/node/clawd
