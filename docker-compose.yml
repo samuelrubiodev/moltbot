@@ -12,13 +12,13 @@ services:
       HOME: /home/node
       TERM: xterm-256color
       CLAWDBOT_GATEWAY_TOKEN: ${CLAWDBOT_GATEWAY_TOKEN}
+      CLAWDBOT_ALLOW_UNCONFIGURED: "true"
       OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
       CLAWDBOT_GATEWAY_BIND: lan
       CLAWDBOT_GATEWAY_PORT: 18789
     volumes:
-      - moltbot-config:/home/node/.clawdbot
+      - moltbot-data:/home/node/.moltbot
       - moltbot-workspace:/home/node/clawd
-    # NO pongas ports aquí - Coolify maneja esto con el proxy
     expose:
       - "18789"
     init: true
@@ -41,14 +41,14 @@ services:
       BROWSER: echo
       OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
     volumes:
-      - moltbot-config:/home/node/.clawdbot
+      - moltbot-data:/home/node/.moltbot
       - moltbot-workspace:/home/node/clawd
     stdin_open: true
     tty: true
     init: true
     entrypoint: ["node", "dist/index.js"]
     profiles:
-      - cli  # Solo se inicia manualmente
+      - cli
 
 volumes:
   moltbot-config:
