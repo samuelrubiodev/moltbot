@@ -35,7 +35,7 @@ ENV NODE_ENV=production
 
 # Security hardening: Create directories and set permissions BEFORE switching user
 RUN mkdir -p /home/node/.openclaw && \
-    mkdir -p /home/node/openclaw/workspace && \
+    mkdir -p /home/node/.openclaw/workspace && \
     chown -R node:node /home/node
 
 # Run as non-root user
