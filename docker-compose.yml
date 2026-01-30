@@ -21,7 +21,7 @@ services:
       - OPENCLAW_SHELL_ENV_TIMEOUT_MS=15000
       - OPENCLAW_DOCKER_APT_PACKAGES=ffmpeg build-essential git
       - OPENCLAW_ALLOW_UNCONFIGURED=true
-      - CLAWDHUB_WORKDIR=/home/node/.moltbot
+      - CLAWDHUB_WORKDIR=/home/node/.openclaw
       - CLAWDHUB_DISABLE_TELEMETRY=1
       # Others
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
