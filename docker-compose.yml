@@ -52,14 +52,16 @@ services:
       - HOME=/home/node
       - TERM=xterm-256color
       - BROWSER=echo
+      # General configuration
       - OPENCLAW_CONFIG_DIR=/home/node/.openclaw
       - OPENCLAW_WORKSPACE_DIR=/home/node/.openclaw/workspace
-      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
       - OPENCLAW_LOAD_SHELL_ENV=1
       - OPENCLAW_SHELL_ENV_TIMEOUT_MS=15000
+      # Others
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
     volumes:
-      - moltbot-data:/home/node/.moltbot
-      - moltbot-workspace:/home/node/clawd
+      - openclaw-data:/home/node/.openclaw
+      - openclaw-workspace:/home/node/.openclaw/workspace
     stdin_open: true
     tty: true
     init: true
