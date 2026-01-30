@@ -19,7 +19,7 @@ services:
       - OPENCLAW_GATEWAY_PORT=18789
       - OPENCLAW_LOAD_SHELL_ENV=1
       - OPENCLAW_SHELL_ENV_TIMEOUT_MS=15000
-      - OPENCLAW_DOCKER_APT_PACKAGES=ffmpeg build-essential git
+      - OPENCLAW_DOCKER_APT_PACKAGES=ffmpeg build-essential git jq
       - OPENCLAW_ALLOW_UNCONFIGURED=true
       - CLAWDHUB_WORKDIR=/home/node/.openclaw
       - CLAWDHUB_DISABLE_TELEMETRY=1
