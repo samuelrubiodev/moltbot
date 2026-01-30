@@ -15,7 +15,7 @@ RUN if [ -n "$OPENCLAW_DOCKER_APT_PACKAGES" ]; then \
       apt-get clean && \
       rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*; \
     fi
-RUN npm install -g undici clawdhub 
+RUN npm install -g undici clawhub 
 RUN npm install -g @google/gemini-cli
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
