@@ -11,22 +11,24 @@ services:
     environment:
       - HOME=/home/node
       - TERM=xterm-256color
-      - OPENCLAW_CONFIG_DIR=/home/node/.moltbot
-      - OPENCLAW_WORKSPACE_DIR=/home/node/clawd
+      # OpenClaw configuration
+      - OPENCLAW_CONFIG_DIR=/home/node/.openclaw
+      - OPENCLAW_WORKSPACE_DIR=/home/node/.openclaw/workspace
       - OPENCLAW_GATEWAY_TOKEN= ${OPENCLAW_GATEWAY_TOKEN}
-      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
       - OPENCLAW_GATEWAY_BIND=lan
       - OPENCLAW_GATEWAY_PORT=18789
       - OPENCLAW_LOAD_SHELL_ENV=1
       - OPENCLAW_SHELL_ENV_TIMEOUT_MS=15000
       - OPENCLAW_DOCKER_APT_PACKAGES =ffmpeg build-essential git
       - OPENCLAW_ALLOW_UNCONFIGURED=true
-      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
       - CLAWDHUB_WORKDIR=/home/node/.moltbot
       - CLAWDHUB_DISABLE_TELEMETRY=1
+      # Others
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
     volumes:
-      - moltbot-data:/home/node/.moltbot
-      - moltbot-workspace:/home/node/clawd
+      - openclaw-data:/home/node/.openclaw
+      - openclaw-workspace:/home/node/.openclaw/workspace
     expose:
       - "18789"
     init: true
@@ -50,8 +52,8 @@ services:
       - HOME=/home/node
       - TERM=xterm-256color
       - BROWSER=echo
-      - OPENCLAW_CONFIG_DIR=/home/node/.moltbot
-      - OPENCLAW_WORKSPACE_DIR=/home/node/clawd
+      - OPENCLAW_CONFIG_DIR=/home/node/.openclaw
+      - OPENCLAW_WORKSPACE_DIR=/home/node/.openclaw/workspace
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
       - OPENCLAW_LOAD_SHELL_ENV=1
       - OPENCLAW_SHELL_ENV_TIMEOUT_MS=15000
@@ -66,7 +68,7 @@ services:
       - cli
 
 volumes:
-  moltbot-data:
+  openclaw-data:
     driver: local
-  moltbot-workspace:
+  openclaw-workspace:
     driver: local
