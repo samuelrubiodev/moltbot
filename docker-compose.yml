@@ -53,8 +53,8 @@ services:
       - OPENCLAW_CONFIG_DIR=/home/node/.moltbot
       - OPENCLAW_WORKSPACE_DIR=/home/node/clawd
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
-      - CLAWDBOT_LOAD_SHELL_ENV=1
-      - CLAWDBOT_SHELL_ENV_TIMEOUT_MS=15000
+      - OPENCLAW_LOAD_SHELL_ENV=1
+      - OPENCLAW_SHELL_ENV_TIMEOUT_MS=15000
     volumes:
       - moltbot-data:/home/node/.moltbot
       - moltbot-workspace:/home/node/clawd
