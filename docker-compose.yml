@@ -1,10 +1,10 @@
-# documentation: https://docs.molt.bot/
-# slogan: Moltbot - AI-powered multi-channel messaging gateway
+# documentation: http://docs.openclaw.ai/
+# slogan: OpenClaw - AI-powered multi-channel messaging gateway
 # tags: ai,chatbot,messaging,automation
 # port: 18789
 
 services:
-  moltbot-gateway:
+  openclaw-gateway:
     build:
       context: .
       dockerfile: Dockerfile
@@ -44,7 +44,7 @@ services:
       retries: 3
       start_period: 40s
 
-  moltbot-cli:
+  openclaw-cli:
     build:
       context: .
       dockerfile: Dockerfile
