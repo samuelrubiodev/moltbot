@@ -17,6 +17,7 @@ RUN if [ -n "$OPENCLAW_DOCKER_APT_PACKAGES" ]; then \
     fi
 RUN npm install -g undici clawhub 
 RUN npm install -g @google/gemini-cli
+RUN npm install -g typescript shx
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
 COPY ui/package.json ./ui/package.json
