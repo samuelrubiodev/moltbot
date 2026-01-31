@@ -28,6 +28,8 @@ services:
       # Others
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - SEARXNG_URL=${SEARXNG_URL}
+      - GOG_ACCOUNT=${GOG_ACCOUNT}
     volumes:
       - openclaw-data:/home/node/.openclaw
       - openclaw-workspace:/home/node/.openclaw/workspace
